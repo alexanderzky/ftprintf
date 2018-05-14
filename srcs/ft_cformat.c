@@ -62,4 +62,5 @@ void	ft_buffer_add_c(t_params **ts, unsigned char c)
 		str[i] = c;
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, size);
+	free(str);
 }
