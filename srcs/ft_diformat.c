@@ -6,17 +6,11 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:53:30 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:43:39 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:14:38 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-
-void	ft_di_less(t_params **ts)
-{
-	(*ts)->plus = -1;
-	(*ts)->space = -1;
-}
 
 long	ft_sl_d(const char *s, t_params **ts)
 {
@@ -66,6 +60,12 @@ int		ft_flcmp(t_params **ts)
 	return (0);
 }
 
+void	ft_free_di(t_params **ts, char **str)
+{
+	free((*ts)->ostr);
+	free(*str);
+}
+
 void	ft_buffer_add_di(t_params **ts, char *di)
 {
 	char *str;
@@ -91,5 +91,5 @@ void	ft_buffer_add_di(t_params **ts, char *di)
 		ft_di_else(ts, &str);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, ft_strlen(str));
-	free((*ts)->ostr);
+	ft_free_di(ts, &str);
 }

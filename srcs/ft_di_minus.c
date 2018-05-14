@@ -6,11 +6,17 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 17:56:22 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:49:11 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 18:50:21 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+
+void	ft_di_less(t_params **ts)
+{
+	(*ts)->plus = -1;
+	(*ts)->space = -1;
+}
 
 void	ft_di_minus_wsp(t_params **ts, char **str, long size)
 {
