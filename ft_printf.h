@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:18:08 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:39:48 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 21:45:32 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			ft_u_minus(t_params **ts, char **str, long size);
 void			ft_buffer_add_o(t_params **temp, char *ostr);
 void			ft_buffer_add_u(t_params **ts, char *ostr);
 void			ft_buffer_add_xx(t_params **ts, char *xx);
-void			ft_buffer_add_di(t_params **ts, char *di);
+void			ft_buffer_add_di(t_params **ts);
 void			ft_buffer_add_p(t_params **ts, char *di_char);
 void			ft_buffer_add_s(t_params **ts, char *s);
 void			ft_buffer_add_c(t_params **temp, unsigned char di);
@@ -105,6 +105,6 @@ void			ft_x_wpd(t_params **ts, char **str, long i);
 void			ft_x_x(char **str, long i);
 void			ft_x_free(char *di_char, char *str);
 void			ft_x_minus(t_params **ts, char **str, char *di_char, long size);
-char			*ft_itoa_base_dec(long value, t_params **temp);
+void			*ft_itoa_base_dec(long value, t_params **temp);
 long			ft_sl_d(const char *s, t_params **ts);
 #endif
