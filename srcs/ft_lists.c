@@ -52,6 +52,4 @@ void		ft_clean_params(t_params **temp)
 	(*temp)->freeme = 0;
 	(*temp)->dminus = 0;
 	(*temp)->ostr = NULL;
-	free((*temp)->astr);
-	(*temp)->astr = NULL;
 }
