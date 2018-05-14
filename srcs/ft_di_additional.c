@@ -6,15 +6,15 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 18:10:05 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 18:53:41 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 18:51:47 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-long	ft_di_zero(t_params **ts, char **str, long di, long i)
+long	ft_di_zero(t_params **ts, char **str, long i)
 {
-	if (di < 0)
+	if ((*ts)->dminus)
 	{
 		while (i > 0)
 		{
@@ -43,10 +43,11 @@ long	ft_di_putchar(t_params **ts, char **str, long i)
 		str[0][i--] = '+';
 		(*ts)->w--;
 	}
-	if ((*ts)->minus == 1)
+	if ((*ts)->dminus)
 	{
 		str[0][i--] = '-';
 		(*ts)->w--;
+		(*ts)->dminus = 0;
 	}
 	if ((*ts)->space == 1)
 	{
@@ -72,18 +73,11 @@ long	ft_di_ostr_copy(t_params **ts, char **str, long i)
 	return (i);
 }
 
-void	ft_di_wsp(t_params **ts, char **str, long di, long i)
+void	ft_di_wsp(t_params **ts, char **str, long i)
 {
-	if (di < 0 && (*ts)->zero > 0)
-		(*ts)->ostr = ft_itoa(di * -1);
-	else if (di < 0)
-	{
-		(*ts)->ostr = ft_itoa(di * -1);
-		(*ts)->minus = 1;
-	}
 	i = ft_di_ostr_copy(ts, str, i);
 	if ((*ts)->zero == 1)
-		i = ft_di_zero(ts, str, di, i);
+		i = ft_di_zero(ts, str, i);
 	else if ((*ts)->p > 0)
 	{
 		str[0][i--] = '0';
@@ -96,26 +90,27 @@ void	ft_di_wsp(t_params **ts, char **str, long di, long i)
 		str[0][i--] = ' ';
 		(*ts)->w--;
 	}
+	if ((*ts)->dminus)
+		str[0][0] = '-';
 }
 
-void	ft_di_p(t_params **ts, char **str, long di, long i)
+void	ft_di_p(t_params **ts, char **str, long i)
 {
 	long j;
 
 	j = 0;
-	if (di < 0)
-		(*ts)->ostr = ft_itoa(di * -1);
 	i = (i - ft_strlen((*ts)->ostr)) + 1;
 	while ((*ts)->ostr[j])
 		str[0][i++] = (*ts)->ostr[j++];
-	i -= (di > 0) ? ft_nbr_lngth(di) + 1 : ft_nbr_lngth(di);
+	i -= ((*ts)->dminus) ? ft_sl_d((*ts)->ostr, ts) :
+		ft_strlen((*ts)->ostr) + 1;
 	while (i > 0)
 		str[0][i--] = '0';
 	if ((*ts)->plus == 1)
 		str[0][i] = '+';
 	else if ((*ts)->space == 1)
 		str[0][i] = ' ';
-	else if (di < 0)
+	else if ((*ts)->dminus)
 		str[0][i] = '-';
 	else
 		str[0][i] = '0';
