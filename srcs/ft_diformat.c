@@ -91,5 +91,5 @@ void	ft_buffer_add_di(t_params **ts, char *di)
 		ft_di_else(ts, &str);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, ft_strlen(str));
-	free(str);
+	free((*ts)->ostr);
 }
