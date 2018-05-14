@@ -63,7 +63,8 @@ int		ft_flcmp(t_params **ts)
 void	ft_free_di(t_params **ts, char **str)
 {
 	free((*ts)->ostr);
-	free(*str);
+	if (*str)
+		free(*str);
 }
 
 void	ft_buffer_add_di(t_params **ts, char *di)
