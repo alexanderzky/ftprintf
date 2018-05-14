@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:53:30 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 20:14:38 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:20:11 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,36 @@ int		ft_flcmp(t_params **ts)
 	return (0);
 }
 
-void	ft_free_di(t_params **ts, char **str)
+void	ft_free_di(t_params **ts)
 {
 	free((*ts)->ostr);
-	if (**str)
-		free(*str);
+	free((*ts)->astr);
 }
 
 void	ft_buffer_add_di(t_params **ts, char *di)
 {
-	char *str;
+//	char *str;
 	long size;
 
 	(*ts)->ostr = di;
 	if ((*ts)->dminus)
 		ft_di_less(ts);
 	size = ft_di_size(ts);
-	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
+	if (!((*ts)->astr = (char*)malloc(sizeof(char) * (size + 1))))
 		(*ts)->error = 1;
-	str[size] = '\0';
+	(*ts)->astr[size] = '\0';
 	if ((*ts)->minus == 1)
-		ft_di_minus(ts, &str, size);
+		ft_di_minus(ts, size);
 	else if (ft_flcmp(ts))
-		ft_di_wsp(ts, &str, size - 1);
+		ft_di_wsp(ts, size - 1);
 	else if ((*ts)->p >= (*ts)->w && ((*ts)->p > ft_sl_d((*ts)->ostr, ts) ||
 			(*ts)->p > ft_strlen((*ts)->ostr)))
-		ft_di_p(ts, &str, size - 1);
+		ft_di_p(ts, size - 1);
 	else if ((*ts)->w > (*ts)->p && (*ts)->p > ft_sl_d((*ts)->ostr, ts))
-		ft_di_wps(ts, &str, size - 1, 0);
+		ft_di_wps(ts, size - 1, 0);
 	else
-		ft_di_else(ts, &str);
+		ft_di_else(ts);
 	if (!(*ts)->error)
-		(*ts)->counter += write(1, str, ft_strlen(str));
-	ft_free_di(ts, &str);
+		(*ts)->counter += write(1, (*ts)->astr, ft_strlen((*ts)->astr));
+	ft_free_di(ts);
 }

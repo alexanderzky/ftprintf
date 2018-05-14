@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:18:08 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:30:46 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 18:39:48 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_params
 	ssize_t		counter;
 	long		meter;
 	char		*ostr;
+	char		*astr;
 	int			freeme;
 	int			error;
 	int			dminus;
@@ -84,11 +85,11 @@ void			ft_p_minus_ps(t_params **temp, char **str, long size, long i);
 void			ft_p_minus_wps(t_params **temp, char **str, long size, long i);
 void			ft_p_minus(t_params **ts, char **str, long size);
 void			ft_p_wsp(t_params **temp, char **str, long i);
-void			ft_di_minus(t_params **ts, char **str, long size);
-void			ft_di_wsp(t_params **ts, char **str, long i);
-void			ft_di_p(t_params **ts, char **str, long i);
-void			ft_di_wps(t_params **ts, char **str, long i, long j);
-void			ft_di_else(t_params **ts, char **str);
+void			ft_di_minus(t_params **ts, long size);
+void			ft_di_wsp(t_params **ts, long i);
+void			ft_di_p(t_params **ts, long i);
+void			ft_di_wps(t_params **ts, long i, long j);
+void			ft_di_else(t_params **ts);
 void			ft_di_less(t_params **ts);
 long			ft_precstrlen(t_params **temp, wchar_t *str);
 long			ft_precwidstrlen(t_params **temp, wchar_t *str);
