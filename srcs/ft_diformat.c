@@ -84,5 +84,5 @@ void	ft_buffer_add_di(t_params **ts, char *di)
 		ft_di_else(ts);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, (*ts)->astr, ft_strlen((*ts)->astr));
-	free((*ts)->astr);
+	free((*ts)->ostr);
 }
