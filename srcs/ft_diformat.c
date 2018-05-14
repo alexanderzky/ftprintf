@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:53:30 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 20:20:11 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:29:21 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,8 @@ int		ft_flcmp(t_params **ts)
 	return (0);
 }
 
-void	ft_free_di(t_params **ts)
-{
-	free((*ts)->ostr);
-	free((*ts)->astr);
-}
-
 void	ft_buffer_add_di(t_params **ts, char *di)
 {
-//	char *str;
 	long size;
 
 	(*ts)->ostr = di;
@@ -91,5 +84,5 @@ void	ft_buffer_add_di(t_params **ts, char *di)
 		ft_di_else(ts);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, (*ts)->astr, ft_strlen((*ts)->astr));
-	ft_free_di(ts);
+	free((*ts)->ostr);
 }

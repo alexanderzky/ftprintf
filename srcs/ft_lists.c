@@ -48,8 +48,10 @@ void		ft_clean_params(t_params **temp)
 	(*temp)->type = -1;
 	(*temp)->x = -1;
 	(*temp)->skip = 0;
-	(*temp)->ostr = NULL;
 	(*temp)->meter = 0;
 	(*temp)->freeme = 0;
 	(*temp)->dminus = 0;
+	(*temp)->ostr = NULL;
+	free((*temp)->astr);
+	(*temp)->astr = NULL;
 }
