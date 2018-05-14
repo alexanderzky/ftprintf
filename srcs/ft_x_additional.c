@@ -82,9 +82,3 @@ void	ft_x_x(char **str, long i)
 		i++;
 	}
 }
-
-void	ft_x_free(char *di_char, char *str)
-{
-	free(di_char);
-	free(str);
-}

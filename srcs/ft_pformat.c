@@ -95,6 +95,4 @@ void	ft_buffer_add_p(t_params **ts, char *ostr)
 		ft_p_else(ts, &str);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, (size_t)ft_strlen(str));
-	free((*ts)->ostr);
-	free(str);
 }

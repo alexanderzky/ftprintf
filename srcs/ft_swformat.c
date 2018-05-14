@@ -81,7 +81,4 @@ void	ft_buffer_add_ws(t_params **ts, wchar_t *s)
 	i = 0;
 	while (str[i] && !(*ts)->error)
 		ft_buffer_wc(ts, str[i++]);
-	free(str);
-	if ((*ts)->freeme == 1)
-		free(s);
 }

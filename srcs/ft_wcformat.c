@@ -99,5 +99,4 @@ void	ft_buffer_add_wc(t_params **ts, wchar_t c)
 	i = 0;
 	while (size-- && !(*ts)->error)
 		ft_buffer_wc(ts, str[i++]);
-	free(str);
 }
