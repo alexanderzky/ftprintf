@@ -39,14 +39,14 @@ long	ft_s_size(t_params **ts, char *s)
 void	ft_s_0(t_params **ts, char **s)
 {
 	(*ts)->freeme = 1;
-	s[0] = malloc(sizeof(char) * 6);
-	s[0][6] = '\0';
+	s[0] = malloc(sizeof(char) * 7);
 	s[0][0] = '(';
 	s[0][1] = 'n';
 	s[0][2] = 'u';
 	s[0][3] = 'l';
 	s[0][4] = 'l';
 	s[0][5] = ')';
+	s[0][6] = '\0';
 }
 
 void	ft_s_minus(t_params **ts, char **str, char *s, long size)

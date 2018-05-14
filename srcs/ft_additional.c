@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 16:29:35 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 22:04:48 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 18:39:48 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,28 @@ size_t	ft_format_len(const char **format)
 	return (i);
 }
 
-void	ft_di_wps(t_params **ts, char **str, long di, long i)
+void	ft_di_wps(t_params **ts, char **str, long i, long j)
 {
-	long j;
-
-	j = 0;
-	if (di < 0)
-		(*ts)->ostr = ft_itoa(di * -1);
-	i = (i - ft_strlen((*ts)->ostr)) + 1;
+	if ((*ts)->dminus)
+	{
+		(*ts)->dminus = 0;
+		(*ts)->minus = 1;
+	}
+	i = (i - ft_sl_d((*ts)->ostr, ts)) + 1;
 	while ((*ts)->ostr[j])
 	{
 		str[0][i++] = (*ts)->ostr[j++];
 		(*ts)->p--;
 	}
-	i -= (di >= 0) ? ft_nbr_lngth(di) + 1 : ft_nbr_lngth(di);
+	i -= ((*ts)->dminus) ? ft_sl_d((*ts)->ostr, ts) :
+		ft_strlen((*ts)->ostr) + 1;
 	while ((*ts)->p--)
-	{
 		str[0][i--] = '0';
-	}
 	if ((*ts)->plus == 1)
 		str[0][i--] = '+';
 	else if ((*ts)->space == 1)
 		str[0][i--] = ' ';
-	else if (di < 0)
+	else if ((*ts)->minus == 1)
 		str[0][i--] = '-';
 	while (i >= 0)
 		str[0][i--] = ' ';
@@ -61,6 +60,8 @@ void	ft_di_else(t_params **ts, char **str)
 		str[0][i++] = '+';
 	else if ((*ts)->space == 1)
 		str[0][i++] = ' ';
+	if ((*ts)->dminus)
+		str[0][i++] = '-';
 	while ((*ts)->ostr[j])
 		str[0][i++] = (*ts)->ostr[j++];
 }

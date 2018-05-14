@@ -36,7 +36,7 @@ SRC = libft/ft_atoi.c libft/ft_bzero.c libft/ft_isalnum.c libft/ft_isalpha.c lib
 		srcs/ft_printf.c srcs/ft_itoa_base.c srcs/ft_uformat.c srcs/ft_xformat.c srcs/ft_diformat.c srcs/ft_influences.c \
 	    srcs/ft_checkers.c srcs/ft_adders.c srcs/ft_lists.c srcs/ft_pformat.c srcs/ft_cformat.c srcs/ft_sformat.c srcs/ft_oformat.c srcs/ft_buffer_add_wrong.c srcs/ft_o_additional.c srcs/ft_influence_chars.c \
 	    srcs/ft_wcformat.c srcs/ft_u_additional.c srcs/ft_p_additional.c srcs/ft_additional.c srcs/ft_di_minus.c srcs/ft_di_additional.c srcs/ft_swformat.c srcs/ft_ws_minus.c srcs/ft_ws_plus.c srcs/ft_s_plus.c \
-	    srcs/ft_length_funcs.c srcs/ft_x_additional.c srcs/ft_x_minus.c
+	    srcs/ft_length_funcs.c srcs/ft_x_additional.c srcs/ft_x_minus.c srcs/ft_itoa_base_dec.c
 
 OFILES = $(SRC:.c=.o)
 

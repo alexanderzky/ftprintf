@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 15:42:53 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 15:10:35 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 16:42:06 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	ft_length_influence_di(t_params **temp, long di)
 {
 	if ((*temp)->length == -1)
-		ft_buffer_add_di(temp, (int)di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec((int)di, temp));
 	else if ((*temp)->length == 0)
-		ft_buffer_add_di(temp, (signed char)di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec((signed char)di, temp));
 	else if ((*temp)->length == 1)
-		ft_buffer_add_di(temp, (short)di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec((short)di, temp));
 	else if ((*temp)->length == 2)
-		ft_buffer_add_di(temp, di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec(di, temp));
 	else if ((*temp)->length == 3)
-		ft_buffer_add_di(temp, (long long)di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec((long long)di, temp));
 	else if ((*temp)->length == 4)
-		ft_buffer_add_di(temp, (ssize_t)di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec((ssize_t)di, temp));
 	else if ((*temp)->length == 5)
-		ft_buffer_add_di(temp, (intmax_t)di);
+		ft_buffer_add_di(temp, ft_itoa_base_dec((intmax_t)di, temp));
 }
 
 void	ft_length_influence_o(t_params **temp, unsigned long o)

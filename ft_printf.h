@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:18:08 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 22:13:15 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 18:30:46 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_params
 	char		*ostr;
 	int			freeme;
 	int			error;
+	int			dminus;
 }				t_params;
 
 size_t			ft_format_len(const char **format);
@@ -66,7 +67,7 @@ void			ft_u_minus(t_params **ts, char **str, long size);
 void			ft_buffer_add_o(t_params **temp, char *ostr);
 void			ft_buffer_add_u(t_params **ts, char *ostr);
 void			ft_buffer_add_xx(t_params **ts, char *xx);
-void			ft_buffer_add_di(t_params **ts, long di);
+void			ft_buffer_add_di(t_params **ts, char *di);
 void			ft_buffer_add_p(t_params **ts, char *di_char);
 void			ft_buffer_add_s(t_params **ts, char *s);
 void			ft_buffer_add_c(t_params **temp, unsigned char di);
@@ -83,10 +84,10 @@ void			ft_p_minus_ps(t_params **temp, char **str, long size, long i);
 void			ft_p_minus_wps(t_params **temp, char **str, long size, long i);
 void			ft_p_minus(t_params **ts, char **str, long size);
 void			ft_p_wsp(t_params **temp, char **str, long i);
-void			ft_di_minus(t_params **ts, char **str, long size, long di);
-void			ft_di_wsp(t_params **ts, char **str, long di, long i);
-void			ft_di_p(t_params **ts, char **str, long di, long i);
-void			ft_di_wps(t_params **ts, char **str, long di, long i);
+void			ft_di_minus(t_params **ts, char **str, long size);
+void			ft_di_wsp(t_params **ts, char **str, long i);
+void			ft_di_p(t_params **ts, char **str, long i);
+void			ft_di_wps(t_params **ts, char **str, long i, long j);
 void			ft_di_else(t_params **ts, char **str);
 void			ft_di_less(t_params **ts);
 long			ft_precstrlen(t_params **temp, wchar_t *str);
@@ -103,4 +104,6 @@ void			ft_x_wpd(t_params **ts, char **str, long i);
 void			ft_x_x(char **str, long i);
 void			ft_x_free(char *di_char, char *str);
 void			ft_x_minus(t_params **ts, char **str, char *di_char, long size);
+char			*ft_itoa_base_dec(long value, t_params **temp);
+long			ft_sl_d(const char *s, t_params **ts);
 #endif

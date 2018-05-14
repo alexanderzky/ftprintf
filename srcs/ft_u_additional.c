@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 14:32:45 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 17:08:15 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 14:25:41 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ long	ft_u_size_forbuffer_add(t_params **temp)
 		(*temp)->ostr[0] = '\0';
 		size = 0;
 	}
+	if ((*temp)->w > size && (*temp)->ostr[0] == '0' && (*temp)->p == 0)
+	{
+		size = (*temp)->w;
+	}
 	else if ((*temp)->p > size || (*temp)->w > size)
 	{
-		if ((*temp)->w > (*temp)->p)
+		if ((*temp)->w >= (*temp)->p)
 			size = (*temp)->w;
 		else
 			size = (*temp)->p;

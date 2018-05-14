@@ -52,14 +52,14 @@ long	ft_ws_size(t_params **ts, wchar_t *s)
 void	ft_ws_0(t_params **ts, wchar_t **s)
 {
 	(*ts)->freeme = 1;
-	s[0] = malloc(sizeof(wchar_t) * 6);
-	s[0][6] = '\0';
+	s[0] = malloc(sizeof(wchar_t) * 7);
 	s[0][0] = '(';
 	s[0][1] = 'n';
 	s[0][2] = 'u';
 	s[0][3] = 'l';
 	s[0][4] = 'l';
 	s[0][5] = ')';
+	s[0][6] = '\0';
 }
 
 void	ft_buffer_add_ws(t_params **ts, wchar_t *s)

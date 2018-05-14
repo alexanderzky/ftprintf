@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 15:48:56 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 14:44:12 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 15:13:06 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ void		ft_width_add(t_params **temp, const char **format, va_list vl)
 
 void		ft_prec_add(t_params **temp, const char **format, va_list vl)
 {
-	int len;
 	int wildcard;
 
 	if (*(*format + 1) > 47 && *(*format + 1) < 58)
 	{
 		*format += 1;
 		(*temp)->p = ft_atoi(*format);
-		len = ft_nbr_lngth(ft_atoi(*format));
-		*format += len - 1;
+		while (*(*format) > 47 && *(*format) < 58 && (*(*format + 1) > 47
+													&& *(*format + 1) < 58))
+			*format += 1;
 	}
 	else if (*(*format + 1) == 42)
 	{

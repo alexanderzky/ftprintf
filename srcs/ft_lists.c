@@ -31,6 +31,7 @@ t_params	*ft_create_specs(void)
 	temp->skip = 0;
 	temp->meter = 0;
 	temp->freeme = 0;
+	temp->dminus = 0;
 	return (temp);
 }
 
@@ -50,4 +51,5 @@ void		ft_clean_params(t_params **temp)
 	(*temp)->ostr = NULL;
 	(*temp)->meter = 0;
 	(*temp)->freeme = 0;
+	(*temp)->dminus = 0;
 }
