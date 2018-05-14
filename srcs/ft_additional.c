@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 16:29:35 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:39:48 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 20:30:28 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_format_len(const char **format)
 	return (i);
 }
 
-void	ft_di_wps(t_params **ts, char **str, long i, long j)
+void	ft_di_wps(t_params **ts, long i, long j)
 {
 	if ((*ts)->dminus)
 	{
@@ -32,24 +32,24 @@ void	ft_di_wps(t_params **ts, char **str, long i, long j)
 	i = (i - ft_sl_d((*ts)->ostr, ts)) + 1;
 	while ((*ts)->ostr[j])
 	{
-		str[0][i++] = (*ts)->ostr[j++];
+		(*ts)->astr[i++] = (*ts)->ostr[j++];
 		(*ts)->p--;
 	}
 	i -= ((*ts)->dminus) ? ft_sl_d((*ts)->ostr, ts) :
 		ft_strlen((*ts)->ostr) + 1;
 	while ((*ts)->p--)
-		str[0][i--] = '0';
+		(*ts)->astr[i--] = '0';
 	if ((*ts)->plus == 1)
-		str[0][i--] = '+';
+		(*ts)->astr[i--] = '+';
 	else if ((*ts)->space == 1)
-		str[0][i--] = ' ';
+		(*ts)->astr[i--] = ' ';
 	else if ((*ts)->minus == 1)
-		str[0][i--] = '-';
+		(*ts)->astr[i--] = '-';
 	while (i >= 0)
-		str[0][i--] = ' ';
+		(*ts)->astr[i--] = ' ';
 }
 
-void	ft_di_else(t_params **ts, char **str)
+void	ft_di_else(t_params **ts)
 {
 	long i;
 	long j;
@@ -57,13 +57,13 @@ void	ft_di_else(t_params **ts, char **str)
 	j = 0;
 	i = 0;
 	if ((*ts)->plus == 1)
-		str[0][i++] = '+';
+		(*ts)->astr[i++] = '+';
 	else if ((*ts)->space == 1)
-		str[0][i++] = ' ';
+		(*ts)->astr[i++] = ' ';
 	if ((*ts)->dminus)
-		str[0][i++] = '-';
+		(*ts)->astr[i++] = '-';
 	while ((*ts)->ostr[j])
-		str[0][i++] = (*ts)->ostr[j++];
+		(*ts)->astr[i++] = (*ts)->ostr[j++];
 }
 
 long	ft_p_size(t_params **temp)
