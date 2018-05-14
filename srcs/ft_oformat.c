@@ -104,6 +104,6 @@ void	ft_buffer_add_o(t_params **ts, char *ostr)
 		ft_o_else(ts, &str);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, ft_strlen(str));
-	free(str);
-	free(ostr);
+	// free(str);
+	// free(ostr);
 }
