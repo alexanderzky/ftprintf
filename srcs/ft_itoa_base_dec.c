@@ -6,13 +6,13 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 15:49:12 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:52:43 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/14 21:45:32 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	ft_huge_numb(char **str, long value, long size, t_params **temp)
+void	ft_huge_numb(long value, long size, t_params **ts)
 {
 	static char		val[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8',
 								'9'};
@@ -20,59 +20,56 @@ void	ft_huge_numb(char **str, long value, long size, t_params **temp)
 	long			i;
 	long			j;
 
-	(*temp)->dminus = 1;
+	(*ts)->dminus = 1;
 	uvalue = (unsigned long)(value * -1);
 	size = ft_nbr_lngth(uvalue);
-	if (!(str[0] = (char*)malloc(sizeof(char) * (size + 1))))
-		return ;
-	str[0][size] = '\0';
+	if (!((*ts)->ostr = (char*)malloc(sizeof(char) * (size + 1))))
+		(*ts)->error = 1;
+	(*ts)->ostr[size] = '\0';
 	i = size - 1;
 	while (uvalue)
 	{
 		j = uvalue % 10;
-		str[0][i] = val[j];
+		(*ts)->ostr[i] = val[j];
 		uvalue = uvalue / 10;
 		i--;
 	}
 }
 
-void	ft_numb(char **str, long value, long size)
+void	ft_numb(t_params **ts, long value, long size)
 {
 	static char	val[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	long		i;
 	long		j;
 
 	size = ft_nbr_lngth(value);
-	if (!(str[0] = (char*)malloc(sizeof(char) * (size + 1))))
-		return ;
-	str[0][size] = '\0';
+	if (!((*ts)->ostr = (char*)malloc(sizeof(char) * (size + 1))))
+		(*ts)->error = 1;
+	(*ts)->ostr[size] = '\0';
 	i = size - 1;
 	while (value)
 	{
 		j = value % 10;
-		str[0][i] = val[j];
+		(*ts)->ostr[i] = val[j];
 		value = value / 10;
 		i--;
 	}
 }
 
-char	*ft_itoa_base_dec(long value, t_params **temp)
+void	*ft_itoa_base_dec(long value, t_params **ts)
 {
 	long		size;
-	char		*str;
 
 	size = 0;
 	if (value == 0)
 	{
-		if (!(str = (char*)malloc(sizeof(char) * (2))))
-			return (NULL);
-		str[0] = '0';
-		str[1] = '\0';
-		return (str);
+		if (!((*ts)->ostr = (char*)malloc(sizeof(char) * (2))))
+			(*ts)->error = 1;
+		(*ts)->ostr[0] = '0';
+		(*ts)->ostr[1] = '\0';
 	}
-	if (value < 0)
-		ft_huge_numb(&str, value, size, temp);
+	else if (value < 0)
+		ft_huge_numb(value, size, ts);
 	else
-		ft_numb(&str, value, size);
-	return (str);
+		ft_numb(ts, value, size);
 }
