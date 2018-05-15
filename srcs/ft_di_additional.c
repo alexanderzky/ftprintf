@@ -6,65 +6,64 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 18:10:05 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 18:53:19 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 18:10:03 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-long	ft_di_zero(t_params **ts, long i)
+long	ft_di_zero(t_params **ts, long i, char *str)
 {
 	if ((*ts)->dminus)
 	{
 		while (i > 0)
 		{
-			(*ts)->astr[i--] = '0';
+			str[i--] = '0';
 			(*ts)->w--;
 		}
-		(*ts)->astr[i] = '-';
+		str[i] = '-';
 		(*ts)->w--;
 	}
 	else if ((*ts)->plus == 1 || (*ts)->space == 1)
 	{
 		while (i > 0)
-			(*ts)->astr[i--] = '0';
-		(*ts)->astr[i--] = ((*ts)->plus == 1) ? '+' : ' ';
+			str[i--] = '0';
 	}
 	else
 		while (i >= 0)
-			(*ts)->astr[i--] = '0';
+			str[i--] = '0';
 	return (i);
 }
 
-long	ft_di_putchar(t_params **ts, long i)
+long	ft_di_putchar(t_params **ts, long i, char *str)
 {
-	if ((*ts)->plus == 1)
+	if ((*ts)->plus == 1 && i >= 0)
 	{
-		(*ts)->astr[i--] = '+';
+		str[i--] = '+';
 		(*ts)->w--;
 	}
-	if ((*ts)->dminus)
+	if ((*ts)->dminus && i >= 0)
 	{
-		(*ts)->astr[i--] = '-';
+		str[i--] = '-';
 		(*ts)->w--;
 		(*ts)->dminus = 0;
 	}
-	if ((*ts)->space == 1)
+	if ((*ts)->space == 1 && i >= 0)
 	{
-		(*ts)->astr[i--] = ' ';
+		str[i--] = ' ';
 		(*ts)->w--;
 	}
 	return (i);
 }
 
-long	ft_di_ostr_copy(t_params **ts, long i)
+long	ft_di_ostr_copy(t_params **ts, long i, char *str)
 {
 	long j;
 
 	j = ft_strlen((*ts)->ostr) - 1;
 	while (j >= 0)
 	{
-		(*ts)->astr[i] = (*ts)->ostr[j];
+		str[i] = (*ts)->ostr[j];
 		i--;
 		j--;
 		(*ts)->w--;
@@ -73,45 +72,45 @@ long	ft_di_ostr_copy(t_params **ts, long i)
 	return (i);
 }
 
-void	ft_di_wsp(t_params **ts, long i)
+void	ft_di_wsp(t_params **ts, long i, char *str)
 {
-	i = ft_di_ostr_copy(ts, i);
+	i = ft_di_ostr_copy(ts, i, str);
 	if ((*ts)->zero == 1)
-		i = ft_di_zero(ts, i);
+		i = ft_di_zero(ts, i, str);
 	else if ((*ts)->p > 0)
 	{
-		(*ts)->astr[i--] = '0';
+		str[i--] = '0';
 		(*ts)->p--;
 		(*ts)->w--;
 	}
-	i = ft_di_putchar(ts, i);
+	i = ft_di_putchar(ts, i, str);
 	while ((*ts)->w > 0 && i >= 0)
 	{
-		(*ts)->astr[i--] = ' ';
+		str[i--] = ' ';
 		(*ts)->w--;
 	}
 	if ((*ts)->dminus)
-		(*ts)->astr[0] = '-';
+		str[0] = '-';
 }
 
-void	ft_di_p(t_params **ts, long i)
+void	ft_di_p(t_params **ts, long i, char *str)
 {
 	long j;
 
 	j = 0;
 	i = (i - ft_strlen((*ts)->ostr)) + 1;
 	while ((*ts)->ostr[j])
-		(*ts)->astr[i++] = (*ts)->ostr[j++];
+		str[i++] = (*ts)->ostr[j++];
 	i -= ((*ts)->dminus) ? ft_sl_d((*ts)->ostr, ts) :
 		ft_strlen((*ts)->ostr) + 1;
 	while (i > 0)
-		(*ts)->astr[i--] = '0';
+		str[i--] = '0';
 	if ((*ts)->plus == 1)
-		(*ts)->astr[i] = '+';
+		str[i] = '+';
 	else if ((*ts)->space == 1)
-		(*ts)->astr[i] = ' ';
+		str[i] = ' ';
 	else if ((*ts)->dminus)
-		(*ts)->astr[i] = '-';
+		str[i] = '-';
 	else
-		(*ts)->astr[i] = '0';
+		str[i] = '0';
 }

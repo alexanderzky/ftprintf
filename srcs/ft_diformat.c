@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 14:53:30 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 21:48:39 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 17:43:59 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ long	ft_di_size(t_params **ts)
 {
 	long size;
 
+	if ((*ts)->dminus)
+		ft_di_less(ts);
 	size = ft_sl_d((*ts)->ostr, ts);
 	if ((*ts)->ostr[0] == '0' && (*ts)->p == 0)
 	{
@@ -52,7 +54,7 @@ long	ft_di_size(t_params **ts)
 	return (size);
 }
 
-int		ft_flcmp(t_params **ts)
+int		ft_width_str_prec(t_params **ts)
 {
 	if ((*ts)->w > ft_sl_d((*ts)->ostr, ts) && (*ts)->p <=
 				ft_sl_d((*ts)->ostr, ts))
@@ -60,29 +62,23 @@ int		ft_flcmp(t_params **ts)
 	return (0);
 }
 
-void	ft_buffer_add_di(t_params **ts)
+void	ft_buffer_add_di(t_params **ts, long size)
 {
-	long size;
+	char str[size];
 
-	if ((*ts)->dminus)
-		ft_di_less(ts);
-	size = ft_di_size(ts);
-	if (!((*ts)->astr = (char*)malloc(sizeof(char) * (size + 1))))
-		(*ts)->error = 1;
-	(*ts)->astr[size] = '\0';
+	str[size] = '\0';
 	if ((*ts)->minus == 1)
-		ft_di_minus(ts, size);
-	else if (ft_flcmp(ts))
-		ft_di_wsp(ts, size - 1);
+		ft_di_minus(ts, size - 1, str);
+	else if (ft_width_str_prec(ts))
+		ft_di_wsp(ts, size - 1, str);
 	else if ((*ts)->p >= (*ts)->w && ((*ts)->p > ft_sl_d((*ts)->ostr, ts) ||
 			(*ts)->p > ft_strlen((*ts)->ostr)))
-		ft_di_p(ts, size - 1);
+		ft_di_p(ts, size - 1, str);
 	else if ((*ts)->w > (*ts)->p && (*ts)->p > ft_sl_d((*ts)->ostr, ts))
-		ft_di_wps(ts, size - 1, 0);
+		ft_di_wps(ts, size - 1, 0, str);
 	else
-		ft_di_else(ts);
+		ft_di_else(ts, str);
 	if (!(*ts)->error)
-		(*ts)->counter += write(1, (*ts)->astr, ft_strlen((*ts)->astr));
-	// free((*ts)->ostr);
-	// free((*ts)->astr);
+		(*ts)->counter += write(1, str, (size_t)size);
+	free((*ts)->ostr);
 }

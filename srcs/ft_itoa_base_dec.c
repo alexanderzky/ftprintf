@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 15:49:12 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 21:45:32 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 15:59:58 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_numb(t_params **ts, long value, long size)
 	}
 }
 
-void	*ft_itoa_base_dec(long value, t_params **ts)
+void	ft_itoa_base_dec(long value, t_params **ts)
 {
 	long		size;
 
@@ -72,4 +72,5 @@ void	*ft_itoa_base_dec(long value, t_params **ts)
 		ft_huge_numb(value, size, ts);
 	else
 		ft_numb(ts, value, size);
+	return ;
 }

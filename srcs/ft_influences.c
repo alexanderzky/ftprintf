@@ -6,29 +6,32 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 15:42:53 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/14 17:54:47 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 15:25:20 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	ft_length_influence_di(t_params **temp, long di)
+void	ft_length_influence_di(t_params **ts, long di)
 {
-	if ((*temp)->length == -1)
-		ft_itoa_base_dec((int)di, temp);
-	else if ((*temp)->length == 0)
-		ft_itoa_base_dec((signed char)di, temp);
-	else if ((*temp)->length == 1)
-		ft_itoa_base_dec((short)di, temp);
-	else if ((*temp)->length == 2)
-		ft_itoa_base_dec(di, temp);
-	else if ((*temp)->length == 3)
-		ft_itoa_base_dec((long long)di, temp);
-	else if ((*temp)->length == 4)
-		ft_itoa_base_dec((ssize_t)di, temp);
-	else if ((*temp)->length == 5)
-		ft_itoa_base_dec((intmax_t)di, temp);
-	ft_buffer_add_di(temp);
+	long size;
+
+	if ((*ts)->length == -1)
+		ft_itoa_base_dec((int)di, ts);
+	else if ((*ts)->length == 0)
+		ft_itoa_base_dec((signed char)di, ts);
+	else if ((*ts)->length == 1)
+		ft_itoa_base_dec((short)di, ts);
+	else if ((*ts)->length == 2)
+		ft_itoa_base_dec(di, ts);
+	else if ((*ts)->length == 3)
+		ft_itoa_base_dec((long long)di, ts);
+	else if ((*ts)->length == 4)
+		ft_itoa_base_dec((ssize_t)di, ts);
+	else if ((*ts)->length == 5)
+		ft_itoa_base_dec((intmax_t)di, ts);
+	size = ft_di_size(ts);
+	ft_buffer_add_di(ts, size);
 }
 
 void	ft_length_influence_o(t_params **temp, unsigned long o)
