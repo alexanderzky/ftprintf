@@ -53,5 +53,6 @@ void	ft_buffer_add_wrong(t_params **ts, const char **s)
 		ft_wrong_else(ts, &str, size, s);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, ft_strlen(str));
-	free(str);
+	if (!(*ts)->error)
+		free(str);
 }

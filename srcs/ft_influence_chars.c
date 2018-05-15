@@ -30,18 +30,25 @@ void	ft_length_influence_c(t_params **temp, unsigned int c)
 
 void	ft_length_influence_p(t_params **temp, unsigned long xx)
 {
+	char *str;
+
+	str = NULL;
 	if ((*temp)->length == -1)
-		ft_buffer_add_p(temp, ft_itoa_base(xx, 16, 0));
+		str = ft_itoa_base(xx, 16, 0);
 	else if ((*temp)->length == 0)
-		ft_buffer_add_p(temp, ft_itoa_base((unsigned char)xx, 16, 0));
+		str = ft_itoa_base((unsigned char)xx, 16, 0);
 	else if ((*temp)->length == 3)
-		ft_buffer_add_p(temp, ft_itoa_base((unsigned long long)xx, 16, 0));
+		str = ft_itoa_base((unsigned long long)xx, 16, 0);
 	else if ((*temp)->length == 1)
-		ft_buffer_add_p(temp, ft_itoa_base((unsigned short)xx, 16, 0));
+		str = ft_itoa_base((unsigned short)xx, 16, 0);
 	else if ((*temp)->length == 2)
-		ft_buffer_add_p(temp, ft_itoa_base(xx, 16, 0));
+		str = ft_itoa_base(xx, 16, 0);
 	else if ((*temp)->length == 5)
-		ft_buffer_add_p(temp, ft_itoa_base((uintmax_t)xx, 16, 0));
+		str = ft_itoa_base((uintmax_t)xx, 16, 0);
 	else if ((*temp)->length == 4)
-		ft_buffer_add_p(temp, ft_itoa_base((size_t)xx, 16, 0));
+		str = ft_itoa_base((size_t)xx, 16, 0);
+	if (str == NULL)
+		(*temp)->error = 1;
+	if (!(*temp)->error)
+		ft_buffer_add_p(temp, str);
 }

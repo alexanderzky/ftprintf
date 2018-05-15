@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 17:55:26 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 22:38:54 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 19:25:07 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_x_wdp(t_params **ts, char **str, long i)
 {
 	long j;
 
+	if ((*ts)->error)
+		return ;
 	str[0][i + 1] = '\0';
 	j = ft_strlen((*ts)->ostr) - 1;
 	if (!((*ts)->ostr[0] == '0' && (*ts)->p == 0))
@@ -97,22 +99,22 @@ void	ft_buffer_add_xx(t_params **ts, char *di_char)
 	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
 		(*ts)->error = 1;
 	(*ts)->ostr = di_char;
-	if ((*ts)->minus == 1)
+	if ((*ts)->minus == 1 && !(*ts)->error)
 		ft_x_minus(ts, &str, di_char, size);
 	else if ((*ts)->w > (int)ft_strlen(di_char) &&
-			(*ts)->p <= (int)ft_strlen(di_char))
+			(*ts)->p <= (int)ft_strlen(di_char) && !(*ts)->error)
 		ft_x_wdp(ts, &str, size - 1);
 	else if ((*ts)->p >= (*ts)->w && ((*ts)->p > (int)ft_strlen(di_char)))
 		ft_x_p(ts, &str, size - 1);
 	else if ((*ts)->w > (*ts)->p && (*ts)->p > (int)ft_strlen(di_char))
 		ft_x_wpd(ts, &str, size - 1);
-	else if (di_char[0] == '0' && (*ts)->p == 0)
+	else if (di_char[0] == '0' && (*ts)->p == 0 && !(*ts)->error)
 		str[0] = '\0';
-	else
+	else if (!(*ts)->error)
 		ft_x_0(ts, &str, size - 1);
-	if ((*ts)->x > 0)
+	if ((*ts)->x > 0 && !(*ts)->error)
 		ft_x_x(&str, size - 1);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, (size_t)ft_strlen(str));
-	ft_x_free(di_char, str);
+	ft_x_free(di_char, str, ts);
 }

@@ -88,16 +88,18 @@ void	ft_buffer_add_wc(t_params **ts, wchar_t c)
 		size = (*ts)->w;
 	if (!(str = (wchar_t*)malloc(sizeof(wchar_t) * (size + 1))))
 		(*ts)->error = 1;
-	str[size] = '\0';
+	if (!(*ts)->error)
+		str[size] = '\0';
 	i = 0;
-	if ((*ts)->minus == 1)
+	if ((*ts)->minus == 1 && !(*ts)->error)
 		ft_wc_minus(ts, &str, c, size);
-	else if ((*ts)->w > 1)
+	else if ((*ts)->w > 1 && !(*ts)->error)
 		ft_wc_width(ts, &str, c, size);
-	else
+	else if (!(*ts)->error)
 		str[i] = c;
 	i = 0;
 	while (size-- && !(*ts)->error)
 		ft_buffer_wc(ts, str[i++]);
-	free(str);
+	if (!(*ts)->error)
+		free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 21:30:47 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 22:38:54 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 19:25:07 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_x_p(t_params **ts, char **str, long i)
 	long j;
 	long z;
 
+	if ((*ts)->error)
+		return ;
 	str[0][i + 1] = '\0';
 	j = 0;
 	i = (i - ft_strlen((*ts)->ostr)) + 1;
@@ -51,6 +53,8 @@ void	ft_x_wpd(t_params **ts, char **str, long i)
 	long j;
 	long z;
 
+	if ((*ts)->error)
+		return ;
 	str[0][i + 1] = '\0';
 	j = 0;
 	i = (i - ft_strlen(((*ts)->ostr))) + 1;
@@ -83,8 +87,11 @@ void	ft_x_x(char **str, long i)
 	}
 }
 
-void	ft_x_free(char *di_char, char *str)
+void	ft_x_free(char *di_char, char *str, t_params **ts)
 {
-	free(di_char);
-	free(str);
+	if (!(*ts)->error)
+	{
+		free(di_char);
+		free(str);
+	}
 }

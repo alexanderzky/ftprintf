@@ -52,15 +52,17 @@ void	ft_buffer_add_c(t_params **ts, unsigned char c)
 		size = (*ts)->w;
 	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
 		(*ts)->error = 1;
-	str[size] = '\0';
+	if (!(*ts)->error)
+		str[size] = '\0';
 	i = 0;
-	if ((*ts)->minus == 1)
+	if ((*ts)->minus == 1 && !(*ts)->error)
 		ft_c_minus(ts, &str, c, size);
-	else if ((*ts)->w > 1)
+	else if ((*ts)->w > 1 && !(*ts)->error)
 		ft_c_width(ts, &str, c, size);
-	else
+	else if (!(*ts)->error)
 		str[i] = c;
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, size);
-	free(str);
+	if (!(*ts)->error)
+		free(str);
 }

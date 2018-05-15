@@ -66,12 +66,12 @@ void		ft_percent(const char **format, t_params *temp, va_list vl)
 	temp->meter++;
 	temp = ft_check_all(temp, format, vl);
 	ft_params_process(temp, vl);
-	while (**format && !(ft_type_ch(format)) && !temp->skip)
+	while (**format && !(ft_type_ch(format)) && !temp->skip && !temp->error)
 	{
 		temp->meter++;
 		(*format)++;
 	}
-	if (**format)
+	if (**format && !temp->error)
 	{
 		temp->meter++;
 		(*format)++;

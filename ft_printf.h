@@ -102,7 +102,7 @@ void			ft_x_p(t_params **ts, char **str, long i);
 void			ft_x_0(t_params **ts, char **str, long i);
 void			ft_x_wpd(t_params **ts, char **str, long i);
 void			ft_x_x(char **str, long i);
-void			ft_x_free(char *di_char, char *str);
+void			ft_x_free(char *di_char, char *str, t_params **temp);
 void			ft_x_minus(t_params **ts, char **str, char *di_char, long size);
 void			ft_itoa_base_dec(long value, t_params **temp);
 long			ft_sl_d(const char *s, t_params **ts);

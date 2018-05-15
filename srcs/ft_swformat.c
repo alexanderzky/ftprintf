@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/13 19:05:33 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 20:07:42 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 19:58:20 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ long	ft_ws_size(t_params **ts, wchar_t *s)
 {
 	long size;
 
+	if ((*ts)->error)
+		return (0);
 	size = ft_strsimplelen(s);
 	if ((*ts)->p == 0)
 	{
@@ -52,7 +54,11 @@ long	ft_ws_size(t_params **ts, wchar_t *s)
 void	ft_ws_0(t_params **ts, wchar_t **s)
 {
 	(*ts)->freeme = 1;
-	s[0] = malloc(sizeof(wchar_t) * 7);
+	if (!(s[0] = malloc(sizeof(wchar_t) * 7)))
+	{
+		(*ts)->error = 1;
+		return ;
+	}
 	s[0][0] = '(';
 	s[0][1] = 'n';
 	s[0][2] = 'u';
@@ -70,18 +76,21 @@ void	ft_buffer_add_ws(t_params **ts, wchar_t *s)
 
 	if (!s || s[0] == '0')
 		ft_ws_0(ts, &s);
-	size = ft_ws_size(ts, s);
+	if (!(size = ft_ws_size(ts, s)))
+		return ;
 	if (!(str = malloc(sizeof(wchar_t) * (size + 1))))
 		(*ts)->error = 1;
-	str[size] = '\0';
-	if ((*ts)->minus == 1)
+	if (!(*ts)->error)
+		str[size] = '\0';
+	if ((*ts)->minus == 1 && !(*ts)->error)
 		ft_ws_minus(ts, &str, s, size);
-	else
+	else if (!(*ts)->error)
 		ft_ws_plus(ts, &str, s, size);
 	i = 0;
 	while (str[i] && !(*ts)->error)
 		ft_buffer_wc(ts, str[i++]);
-	free(str);
-	if ((*ts)->freeme == 1)
+	if (!(*ts)->error)
+		free(str);
+	if ((*ts)->freeme == 1 && !(*ts)->error)
 		free(s);
 }

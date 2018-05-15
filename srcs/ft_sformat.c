@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 18:25:56 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/13 20:42:35 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 19:57:29 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ long	ft_s_size(t_params **ts, char *s)
 void	ft_s_0(t_params **ts, char **s)
 {
 	(*ts)->freeme = 1;
-	s[0] = malloc(sizeof(char) * 7);
+	if (!(s[0] = malloc(sizeof(char) * 7)))
+	{
+		(*ts)->error = 1;
+		return ;
+	}
 	s[0][0] = '(';
 	s[0][1] = 'n';
 	s[0][2] = 'u';
@@ -75,17 +79,19 @@ void	ft_buffer_add_s(t_params **ts, char *s)
 	size = ft_s_size(ts, s);
 	if (!(str = (char *)malloc(sizeof(char) * (size + 1))))
 		(*ts)->error = 1;
-	str[size] = '\0';
-	if (!s || s[0] == '0')
+	if (!(*ts)->error)
+		str[size] = '\0';
+	if ((!s || s[0] == '0') && !(*ts)->error)
 		ft_s_0(ts, &s);
-	if ((*ts)->minus == 1)
+	if ((*ts)->minus == 1 && !(*ts)->error)
 		ft_s_minus(ts, &str, s, size);
-	else
+	else if (!(*ts)->error)
 		ft_s_plus(ts, &str, s, size);
 	i = 0;
 	while (size-- && !(*ts)->error)
 		ft_buffer_wc(ts, str[i++]);
-	free(str);
-	if ((*ts)->freeme == 1)
+	if (!(*ts)->error)
+		free(str);
+	if ((*ts)->freeme == 1 && !(*ts)->error)
 		free(s);
 }

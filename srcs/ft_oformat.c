@@ -39,6 +39,8 @@ void	ft_o_psw(t_params **temp, char **str, long i)
 {
 	long j;
 
+	if ((*temp)->error)
+		return ;
 	j = 0;
 	i = (i - ft_strlen((*temp)->ostr)) + 1;
 	while ((*temp)->ostr[j])
@@ -52,6 +54,8 @@ void	ft_o_wps(t_params **temp, char **str, long i)
 {
 	long j;
 
+	if ((*temp)->error)
+		return ;
 	j = 0;
 	i = (i - ft_strlen((*temp)->ostr)) + 1;
 	while ((*temp)->ostr[j])
@@ -71,6 +75,8 @@ void	ft_o_else(t_params **temp, char **str)
 	long j;
 	long i;
 
+	if ((*temp)->error)
+		return ;
 	j = 0;
 	i = 0;
 	if ((*temp)->hash == 1 && (*temp)->ostr[0] != '0')
@@ -88,11 +94,12 @@ void	ft_buffer_add_o(t_params **ts, char *ostr)
 	size = ft_size_forbuffer_add(ts);
 	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
 		(*ts)->error = 1;
-	str[size] = '\0';
-	if ((*ts)->minus == 1)
+	if (!(*ts)->error)
+		str[size] = '\0';
+	if ((*ts)->minus == 1 && !(*ts)->error)
 		ft_o_minus(ts, &str, size);
 	else if ((*ts)->w > ft_strlen((*ts)->ostr) &&
-			(*ts)->p <= ft_strlen((*ts)->ostr))
+			(*ts)->p <= ft_strlen((*ts)->ostr) && !(*ts)->error)
 		ft_o_wsp(ts, &str, size - 1, 0);
 	else if ((*ts)->p >= (*ts)->w && ((*ts)->p > ft_strlen(ostr)))
 		ft_o_psw(ts, &str, size - 1);
@@ -104,6 +111,5 @@ void	ft_buffer_add_o(t_params **ts, char *ostr)
 		ft_o_else(ts, &str);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, ft_strlen(str));
-	free(str);
-	free(ostr);
+	ft_x_free(str, ostr, ts);
 }
