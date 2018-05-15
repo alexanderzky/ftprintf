@@ -76,7 +76,6 @@ void	ft_buffer_add_s(t_params **ts, char *s)
 	if (!(str = (char *)malloc(sizeof(char) * (size + 1))))
 		(*ts)->error = 1;
 	str[size] = '\0';
-	i = 0;
 	if (!s || s[0] == '0')
 		ft_s_0(ts, &s);
 	if ((*ts)->minus == 1)
@@ -86,7 +85,7 @@ void	ft_buffer_add_s(t_params **ts, char *s)
 	i = 0;
 	while (size-- && !(*ts)->error)
 		ft_buffer_wc(ts, str[i++]);
-	// free(str);
-	// if ((*ts)->freeme == 1)
-	// 	free(s);
+	free(str);
+	if ((*ts)->freeme == 1)
+		free(s);
 }

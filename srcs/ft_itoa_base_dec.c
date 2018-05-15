@@ -6,7 +6,7 @@
 /*   By: ozalisky <ozalisky@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/14 15:49:12 by ozalisky          #+#    #+#             */
-/*   Updated: 2018/05/15 15:59:58 by ozalisky         ###   ########.fr       */
+/*   Updated: 2018/05/15 16:01:15 by ozalisky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	ft_huge_numb(long value, long size, t_params **ts)
 	uvalue = (unsigned long)(value * -1);
 	size = ft_nbr_lngth(uvalue);
 	if (!((*ts)->ostr = (char*)malloc(sizeof(char) * (size + 1))))
+	{
 		(*ts)->error = 1;
+		return ;
+	}
 	(*ts)->ostr[size] = '\0';
 	i = size - 1;
 	while (uvalue)
@@ -44,7 +47,10 @@ void	ft_numb(t_params **ts, long value, long size)
 
 	size = ft_nbr_lngth(value);
 	if (!((*ts)->ostr = (char*)malloc(sizeof(char) * (size + 1))))
+	{
 		(*ts)->error = 1;
+		return ;
+	}
 	(*ts)->ostr[size] = '\0';
 	i = size - 1;
 	while (value)
@@ -64,7 +70,10 @@ void	ft_itoa_base_dec(long value, t_params **ts)
 	if (value == 0)
 	{
 		if (!((*ts)->ostr = (char*)malloc(sizeof(char) * (2))))
+		{
 			(*ts)->error = 1;
+			return ;
+		}
 		(*ts)->ostr[0] = '0';
 		(*ts)->ostr[1] = '\0';
 	}
@@ -72,5 +81,4 @@ void	ft_itoa_base_dec(long value, t_params **ts)
 		ft_huge_numb(value, size, ts);
 	else
 		ft_numb(ts, value, size);
-	return ;
 }

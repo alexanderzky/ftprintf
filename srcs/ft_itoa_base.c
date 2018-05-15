@@ -32,7 +32,7 @@ char	*ft_itoa_base(unsigned long value, int base, int i)
 	static char	val[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 		'a', 'b', 'c', 'd', 'e', 'f'};
 	long		size;
-	int			j;
+	long		j;
 	char		*str;
 
 	size = ft_size(value, base);
@@ -44,7 +44,7 @@ char	*ft_itoa_base(unsigned long value, int base, int i)
 		str[0] = '0';
 		return (str);
 	}
-	i = size - 1;
+	i = (int)size - 1;
 	while (value)
 	{
 		j = value % base;

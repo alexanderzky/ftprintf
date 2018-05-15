@@ -114,5 +114,5 @@ void	ft_buffer_add_xx(t_params **ts, char *di_char)
 		ft_x_x(&str, size - 1);
 	if (!(*ts)->error)
 		(*ts)->counter += write(1, str, (size_t)ft_strlen(str));
-	// ft_x_free(di_char, str);
+	ft_x_free(di_char, str);
 }

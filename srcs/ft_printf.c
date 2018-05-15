@@ -121,6 +121,6 @@ int			ft_printf(const char *format, ...)
 		return (-1);
 	i = flist->counter;
 	va_end(vl);
-	// free(flist);
+	free(flist);
 	return ((int)i);
 }
